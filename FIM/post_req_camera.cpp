@@ -98,7 +98,7 @@ void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QStri
     multiPart->append(date);
 
 
-    QUrl url("http://localhost:5000/add");
+    QUrl url("http://localhost:5000/addCamera");
     QNetworkRequest request(url);
     QNetworkAccessManager *networkManager= new QNetworkAccessManager;
     QNetworkReply *reply = networkManager->post(request,multiPart);

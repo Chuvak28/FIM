@@ -14,7 +14,7 @@ class POST_REQ_CAMERA : public QObject
 public:
     explicit POST_REQ_CAMERA(QObject *parent = nullptr);
 
-    Q_INVOKABLE void upload(const QString &name, const QString &nameDept, const QString &problem1, const QString &problem2, const QString &problem3, const QString &problem4, const QString &comment);
+    Q_INVOKABLE void upload(const QString &lat, const QString &lon, const QString &dateTime, const QString &path, const QString &pathImage);
     Q_INVOKABLE void processImage(const QString& path);
 
 
