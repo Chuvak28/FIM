@@ -11,31 +11,28 @@ Page {
 
         width: Math.min(window.width,window.height)/3*2
         height: window.height
+        interactive: stackView.depth === 1
 
         ListView{
+            id: listView
             focus: true
             currentIndex: -1
             anchors.fill: parent
 
             delegate: ItemDelegate{
                 width: parent.width
-                text: model.text
+                text: model.title
                 highlighted: ListView.isCurrentItem
                 onClicked: {
+                    listView.currentIndex = index
+                    stackView.push(model.source)
                     drawer.close()
-                    model.triggered()
                 }
             }
 
             model: ListModel{
-                ListElement {
-                    text: qsTr("Open...")
-                    triggered: function(){ fileOpenDialog.open(); }
-                }
-                ListElement {
-                    text: qsTr("About...")
-                    triggered: function(){ aboutDialog.open(); }
-                }
+                ListElement { title: "Info"; source: "qrc:/pages/BusyIndicatorPage.qml" }
+                ListElement { title: "Take a picture"; source: "qrc:TakePicture.qml" }
             }
             ScrollIndicator.vertical: ScrollIndicator{}
         }
