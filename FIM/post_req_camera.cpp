@@ -10,7 +10,7 @@ POST_REQ_CAMERA::POST_REQ_CAMERA(QObject *parent) : QObject(parent)
 
 }
 
-void POST_REQ::processImage(const QString& path) {
+void POST_REQ_CAMERA::processImage(const QString& path) {
     QUrl imageUrl(path);
     qDebug() << path << "========PATH=========";
     QQmlEngine* engine = QQmlEngine::contextForObject(this)->engine();
@@ -31,7 +31,7 @@ void POST_REQ::processImage(const QString& path) {
     }
 }
 
-void POST_REQ::upload(const QString &lat, const QString &lon, const QString& dateTime,const QString& textComp, const QString& pathImage)
+void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QString& dateTime,const QString& textComp, const QString& pathImage)
 {
     //==================================
     qDebug()<< lat << lon << dateTime  << pathImage;
@@ -110,12 +110,12 @@ void POST_REQ::upload(const QString &lat, const QString &lon, const QString& dat
             this, SLOT  (uploadProgress(qint64, qint64)));
 }
 
-void POST_REQ::uploadProgress(qint64 bytesSent, qint64 bytesTotal)
+void POST_REQ_CAMERA::uploadProgress(qint64 bytesSent, qint64 bytesTotal)
 {
     qDebug() << "---------Uploaded--------------" << bytesSent<< "of" <<bytesTotal;
 }
 
-void POST_REQ::replyfinished(QNetworkReply* reply1)
+void POST_REQ_CAMERA::replyfinished(QNetworkReply* reply1)
 {
     qDebug() << QString(reply1->readAll());
     qDebug() << QString(reply1->errorString());
