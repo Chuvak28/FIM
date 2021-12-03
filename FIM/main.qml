@@ -1,9 +1,18 @@
 import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
 
-Window {
-    width: 640
-    height: 480
+ApplicationWindow {
+    id:window
+
+    width: 360
+    height: 520
     visible: true
-    title: qsTr("Hello World")
+
+    StackView{
+        id: stackView
+        anchors.fill: parent
+        initialItem: HomePage{}
+    }
+
 }

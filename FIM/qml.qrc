@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>HomePage.qml</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/20x20/menu.png</file>
+        <file>icons/20x20/drawer.png</file>
+        <file>icons/20x20/back.png</file>
     </qresource>
 </RCC>
