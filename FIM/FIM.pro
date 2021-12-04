@@ -9,9 +9,12 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         post_req.cpp \
-        post_req_camera.cpp
+        post_req_camera.cpp \
+        sqlcontactmodel.cpp \
+        sqlconversationmodel.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    images.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -26,4 +29,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     post_req.h \
-    post_req_camera.h
+    post_req_camera.h \
+    sqlcontactmodel.h \
+    sqlconversationmodel.h

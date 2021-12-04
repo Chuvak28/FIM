@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtGraphicalEffects 1.0
-import komtek.ishonch 1.0
+import komtek.fim 1.0
 import POST_REQ 1.0
 
 Page {
@@ -24,7 +24,7 @@ Page {
 
     property string inConversationWith
 
-    header: ChatToolBar {
+    header: ToolBar {
         ToolButton {
             text: qsTr("Back")
             anchors.left: parent.left
@@ -107,7 +107,7 @@ Page {
             }
 
             ColumnLayout {
-                spacing: -15
+                spacing: 20
 
                 anchors.top: image.bottom
 
