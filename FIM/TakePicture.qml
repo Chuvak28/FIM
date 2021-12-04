@@ -9,7 +9,7 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 import QtMultimedia 5.12
 import QtPositioning 5.12
-//import POST_REQ 1.0
+import POST_REQ_CAMERA 1.0
 
 
 
@@ -27,20 +27,21 @@ Page {
 
 
 
-//        POST_REQ {
-//            id: demo
-//        }
+        POST_REQ_CAMERA {
+            id: demo
+        }
 
 
         PositionSource {
             id: src
-            updateInterval: 1000
+            updateInterval: 5000
             active: true
 
             onPositionChanged: {
                 var coord = src.position.coordinate;
                 console.log("Coordinate:", coord.latitude,coord.longitude );
                 lat=coord.latitude;
+                //lat=src.position.coordinate.latitude
                 lon=coord.longitude;
 
             }
@@ -135,6 +136,7 @@ Page {
             placeholderText: "Enter Text Here"
             focus: true
             color: "#aaa"
+            text: lat + lon
         }
 
 

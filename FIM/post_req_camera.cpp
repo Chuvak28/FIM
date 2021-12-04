@@ -5,33 +5,36 @@
 #include <QDebug>
 #include <QFileInfo>
 
-POST_REQ_CAMERA::POST_REQ_CAMERA(QObject *parent) : QObject(parent)
-{
 
-}
+POST_REQ_CAMERA::POST_REQ_CAMERA()
+{}
 
-void POST_REQ_CAMERA::processImage(const QString& path) {
-    QUrl imageUrl(path);
-    qDebug() << path << "========PATH=========";
-    QQmlEngine* engine = QQmlEngine::contextForObject(this)->engine();
-    QQmlImageProviderBase* imageProviderBase = engine->imageProvider(imageUrl.host());
-    QQuickImageProvider* imageProvider = static_cast<QQuickImageProvider*>(imageProviderBase);
+//void POST_REQ::processImage(const QString& path) {
+//    QUrl imageUrl(path);
+//    qDebug() << path << "========PATH=========";
+//    QQmlEngine* engine = QQmlEngine::contextForObject(this)->engine();
+//    QQmlImageProviderBase* imageProviderBase = engine->imageProvider(imageUrl.host());
+//    QQuickImageProvider* imageProvider = static_cast<QQuickImageProvider*>(imageProviderBase);
 
-    QSize imageSize;
-    QString imageId = imageUrl.path().remove(0,1);
-    qDebug() << imageId << "========ID=========";
-    QImage image = imageProvider->requestImage(imageId, &imageSize, imageSize);
-    QString strPath="/home/jasuryuldashev/camera.jpeg";
-    if( !image.isNull()) {
-        // обработка изображения
-        qDebug() << "img.format() Foto" << image.format();
-        qDebug() << "working" << endl;
+//    QSize imageSize;
+//    QString imageId = imageUrl.path().remove(0,1);
+//    qDebug() << imageId << "========ID=========";
+//    QImage image = imageProvider->requestImage(imageId, &imageSize, imageSize);
+//    QString strPath="/home/jasuryuldashev/camera.jpeg";
+//    if( !image.isNull()) {
+//        // обработка изображения
+//        qDebug() << "img.format() Foto" << image.format();
+//        qDebug() << "working" << endl;
 
-        image.save(strPath,"JPEG");
-    }
-}
+//        image.save(strPath,"JPEG");
+//    }
+//}
 
-void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QString& dateTime,const QString& textComp, const QString& pathImage)
+void POST_REQ_CAMERA::upload(const QString &lat,
+                             const QString &lon,
+                             const QString& dateTime,
+                             const QString& textComp,
+                             const QString& pathImage)
 {
     //==================================
     qDebug()<< lat << lon << dateTime  << pathImage;
@@ -60,7 +63,7 @@ void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QStri
     QHttpPart complains;
     //complains.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("text/plain"));
     complains.setHeader(QNetworkRequest::ContentDispositionHeader,
-                        QVariant("form-data; name=\"comp\""));
+                        QVariant("form-data; name=\"textData\""));
     complains.setBody(textComp.toUtf8());
 
 
@@ -72,7 +75,7 @@ void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QStri
     //date of complain
     QHttpPart date;
     //date.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("text/plain"));
-    date.setHeader(QNetworkRequest::ContentDispositionHeader,  QVariant("form-data; name=\"reg_date\""));
+    date.setHeader(QNetworkRequest::ContentDispositionHeader,  QVariant("form-data; name=\"timeData\""));
     date.setBody(dateTime.toUtf8());
 
     // work image also here
@@ -86,7 +89,7 @@ void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QStri
     QHttpPart imagePart;
     imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
     imagePart.setHeader(QNetworkRequest::ContentDispositionHeader,
-                        QVariant(QString("form-data; name=\"photo\"; filename=\"%1\"").arg(fileInfo.fileName()).toLatin1()));
+                        QVariant(QString("form-data; name=\"photoData\"; filename=\"%1\"").arg(fileInfo.fileName()).toLatin1()));
     imagePart.setRawHeader("Content-Transfer-Encoding","binary");
     imagePart.setBodyDevice(file);
     file->setParent(multiPart); // we cannot delete the file now, so delete it with the multiPart
@@ -98,7 +101,7 @@ void POST_REQ_CAMERA::upload(const QString &lat, const QString &lon, const QStri
     multiPart->append(date);
 
 
-    QUrl url("http://localhost:5000/addCamera");
+    QUrl url("http://192.168.0.107:5000/addCamera");
     QNetworkRequest request(url);
     QNetworkAccessManager *networkManager= new QNetworkAccessManager;
     QNetworkReply *reply = networkManager->post(request,multiPart);

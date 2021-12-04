@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 sql qml
+QT += quick quickcontrols2 sql qml positioning network core location
 
 CONFIG += c++11
 
@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        post_req.cpp \
         post_req_camera.cpp
 
 RESOURCES += qml.qrc
@@ -24,4 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    post_req.h \
     post_req_camera.h

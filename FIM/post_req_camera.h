@@ -12,10 +12,15 @@ class POST_REQ_CAMERA : public QObject
 {
     Q_OBJECT
 public:
-    explicit POST_REQ_CAMERA(QObject *parent = nullptr);
+    //explicit POST_REQ_CAMERA(QObject *parent = nullptr);
+    POST_REQ_CAMERA();
 
-    Q_INVOKABLE void upload(const QString &lat, const QString &lon, const QString &dateTime, const QString &path, const QString &pathImage);
-    Q_INVOKABLE void processImage(const QString& path);
+    Q_INVOKABLE void upload(const QString &lat,
+                            const QString &lon,
+                            const QString &dateTime,
+                            const QString &path,
+                            const QString &pathImage);
+    //Q_INVOKABLE void processImage(const QString& path);
 
 
 private slots:
