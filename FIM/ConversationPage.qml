@@ -63,10 +63,6 @@ Page {
                 }
             }
 
-
-
-
-
             ColumnLayout {
                 spacing: -15
 
@@ -79,16 +75,85 @@ Page {
                     text: qsTr("Намёк на взятку")
                     //scale: 0.75
                 }
+                RadioButton {
+                    id:r2
+                    checked:ch?problem2="1": problem2="0"
+                    text: qsTr("Нагрубил")
+                    //scale: 0.75
+                }
+                RadioButton {
+                    id:r3
+                    checked:ch?problem3="1": problem3="0"
+                    text: qsTr("Затягивает с подписанием документов")
+                    //scale: 0.75
 
-
-
-
+                }
+                RadioButton {
+                    id:r4
+                    checked:ch?problem4="1": problem4="0"
+                    text: qsTr("Не выполнил свои обещания")
+                    //scale: 0.75
+                }
             }
-
-
         }
 
+        ListView {
+            id: listView
 
+            clip: true
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.margins: pane.leftPadding + messageField.leftPadding
+            displayMarginBeginning: 40
+            displayMarginEnd: 40
+            //verticalLayoutDirection: ListView.BottomToTop
+            verticalLayoutDirection: ListView.TopToBottom
+            spacing: 12
+            model: SqlConversationModel {
+                recipient: inConversationWith
+            }
+            delegate: Column {
+                anchors.right: sentByMe ? parent.right : undefined
+                spacing: 6
+
+                readonly property bool sentByMe: model.recipient !== "Me"
+
+                Row {
+                    id: messageRow
+                    spacing: 6
+                    anchors.right: sentByMe ? parent.right : undefined
+
+                    Image {
+                        id: avatar
+                        source: !sentByMe ? "qrc:/images/" + model.author.replace(" ", "_") + ".png" : ""
+                    }
+
+                    Rectangle {
+                        width: Math.min(messageText.implicitWidth + 24, listView.width - avatar.width - messageRow.spacing)
+                        height: messageText.implicitHeight + 24
+                        color: sentByMe ? "lightgrey" : "steelblue"
+
+                        Label {
+                            id: messageText
+                            text: model.message
+                            color: sentByMe ? "black" : "white"
+                            anchors.fill: parent
+                            anchors.margins: 12
+                            wrapMode: Label.Wrap
+                        }
+                    }
+                }
+
+                Label {
+                    id: timestampText
+                    text: Qt.formatDateTime(model.timestamp, "d MMM hh:mm")
+                    color: "lightgrey"
+                    anchors.right: sentByMe ? parent.right : undefined
+                }
+            }
+
+            ScrollBar.vertical: ScrollBar {}
+        }
     }
 }
 
