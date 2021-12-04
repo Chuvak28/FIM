@@ -24,6 +24,22 @@ Page {
 
     property string inConversationWith
 
+    header: ChatToolBar {
+        ToolButton {
+            text: qsTr("Back")
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: root.StackView.view.pop()
+        }
+
+        Label {
+            id: pageTitle
+            text: inConversationWith
+            font.pixelSize: 20
+            anchors.centerIn: parent
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -63,6 +79,33 @@ Page {
                 }
             }
 
+            Text {
+                id: aboutName
+                text: inConversationWith
+                anchors.left: image.right
+                anchors.leftMargin: 5
+                font {
+                    bold: true
+                    family: "Helvetica";
+                    pointSize: 10
+
+                }
+            }
+
+            Text {
+                id: aboutPosition
+                text: "Руководитель в районном ЭС"
+                anchors.top: aboutName.bottom
+                anchors.left: image.right
+                anchors.leftMargin: 5
+                font {
+                    bold: true
+                    family: "Helvetica";
+                    pointSize: 10
+
+                }
+            }
+
             ColumnLayout {
                 spacing: -15
 
@@ -94,8 +137,13 @@ Page {
                     text: qsTr("Не выполнил свои обещания")
                     //scale: 0.75
                 }
+
             }
+
+
         }
+
+
 
         ListView {
             id: listView
@@ -154,13 +202,37 @@ Page {
 
             ScrollBar.vertical: ScrollBar {}
         }
+
+
+        Pane {
+            id: pane
+            Layout.fillWidth: true
+
+            RowLayout {
+                width: parent.width
+
+                TextArea {
+                    id: messageField
+                    Layout.fillWidth: true
+                    placeholderText: qsTr("Compose message")
+                    wrapMode: TextArea.Wrap
+                }
+
+                Button {
+                    id: sendButton
+                    text: qsTr("Send")
+                    enabled: messageField.length > 0
+                    onClicked: {
+                        listView.model.sendMessage(inConversationWith, messageField.text);
+                        name=inConversationWith
+                        nameDept="RayGaz"
+                        comment = messageField.text
+                        demo.upload(name, nameDept,problem1,problem2,
+                                    problem3,problem4, comment)
+                        messageField.text = "";
+                    }
+                }
+            }
+        }
     }
 }
-
-
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:5;locked:true}
-}
-##^##*/
