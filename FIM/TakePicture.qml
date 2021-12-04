@@ -25,12 +25,9 @@ Page {
         id: rect1
         anchors.fill: parent
 
-
-
         POST_REQ_CAMERA {
             id: demo
         }
-
 
         PositionSource {
             id: src
@@ -45,7 +42,6 @@ Page {
                 lon=coord.longitude;
 
             }
-
         }
 
         Image {
@@ -54,7 +50,6 @@ Page {
             anchors.fill: parent
             fillMode: Image.PreserveAspectFit
         }
-
 
         Camera {
             id: camera
@@ -78,7 +73,6 @@ Page {
                 }
             }
         }
-
 
         VideoOutput {
             source: camera
@@ -138,7 +132,5 @@ Page {
             color: "#aaa"
             text: lat + lon
         }
-
-
     }
 }

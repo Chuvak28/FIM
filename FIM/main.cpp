@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include "post_req_camera.h"
+#include <QGeoCoordinate>
 
 
 int main(int argc, char *argv[])

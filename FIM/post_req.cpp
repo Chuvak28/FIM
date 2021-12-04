@@ -103,7 +103,7 @@ void POST_REQ::upload(const QString &name,
 
 
     //QUrl url("http://192.168.0.105:5000/add");
-    QUrl url("http://localhost:5000/add");
+    QUrl url("http://192.168.0.7:5000/add");
     QNetworkRequest request(url);
     QNetworkAccessManager *networkManager= new QNetworkAccessManager;
     QNetworkReply *reply = networkManager->post(request,multiPart);
