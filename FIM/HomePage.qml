@@ -22,19 +22,23 @@ Page {
                 text: model.text
                 highlighted: ListView.isCurrentItem
                 onClicked: {
+                    listView.currentIndex = index
+                    stackView.push(model.source)
                     drawer.close()
-                    model.triggered()
+
+
                 }
             }
 
             model: ListModel{
+//                ListElement {
+//                    text: qsTr("Open...")
+//                    triggered: function(){ fileOpenDialog.open(); }
+//                }
                 ListElement {
-                    text: qsTr("Open...")
-                    triggered: function(){ fileOpenDialog.open(); }
-                }
-                ListElement {
-                    text: qsTr("About...")
-                    triggered: function(){ aboutDialog.open(); }
+                    text: "TakePicture";
+                    source: "qrc:/TakePicture.qml";
+                    //icon: "qrc:/icons/icons/info.png" }
                 }
             }
             ScrollIndicator.vertical: ScrollIndicator{}
